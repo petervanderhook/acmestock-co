@@ -1,2 +1,7 @@
-__pycache__/*
-venv/*
+__pycache__
+venv
+audit/__pycache__
+storage/__pycache__
+receiver/__pycache__
+processing/__pycache__
+*.log
