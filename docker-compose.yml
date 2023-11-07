@@ -10,7 +10,10 @@ services:
   processing:
     build:
       context: ./processing
+    depends_on:
+      - storage
     container_name: processing
+    network_mode: "host"
     expose:
       - 8100
 
