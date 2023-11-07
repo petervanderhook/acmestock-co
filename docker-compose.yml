@@ -5,7 +5,7 @@ services:
       context: ./audit
     container_name: audit
     ports:
-      - "8110"
+      - 8110
 
   processing:
     build:
