@@ -1,0 +1,129 @@
+openapi: 3.0.0
+servers: []
+info:
+  description: This is an API for tracking trades of Acme Stock
+  version: "1.0.0"
+  title: Acme Stock Tracker API
+  contact:
+    email: peter@acmetrack.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: traders
+    description: ACME Purchases and Sales App
+  - name: stocktracker
+    description: Tracks purchase and sale of Acme Stock
+paths:
+  /get_stock_quantity:
+    get:
+      summary: gets a stock quantity reading from event history
+      operationId: app.get_stock_quantity
+      description: Gets quantity of a stock listed at the index in event store
+      parameters:
+        - name: index
+          in: query
+          description: Gets quantity of a stock listed at the index in event store
+          schema:
+            type: integer
+            example: 100
+      responses:
+        '200':
+          description: Successfully returned a stock quantity event
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/StockQuantity'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /get_stock_price:
+    get:
+      summary: gets a stock price reading from history
+      operationId: app.get_stock_price
+      description: Gets a stock price from the event store
+      parameters:
+        - name: index
+          in: query
+          description: Gets the stock price at the index in the event store
+          schema:
+            type: integer
+            example: 100
+      responses:
+        '200':
+          description: Successfully returned a stock price event
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/StockPrice'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+components:
+  schemas:
+    StockPrice:
+      required:
+      - listing_id
+      - company
+      - share_price
+      - listing_date
+      properties:
+        listing_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        company:
+          type: string
+          example: Acme Co.
+        share_price:
+          type: number
+          example: 85.0
+        listing_date:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33Z'
+      type: object
+    StockQuantity:
+      required:
+      - company
+      - total_shares_available
+      - listing_date
+      properties:
+        company:
+          type: string
+          example: Acme Co.
+        total_shares_available:
+          type: integer
+          example: 4200
+        listing_date:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33Z'
+      type: object

@@ -1,0 +1,17 @@
+version: 1
+new_stock:
+  url: new_stock
+  type: post
+new_sell_order:
+  url: new_sell_order
+  type: post
+get_stock:
+  url: get_available_stocks
+  type: get
+get_sell_order:
+  url: get_sell_order
+  type: get
+events:
+  hostname: stinky.westus3.cloudapp.azure.com
+  port: 9092
+  topic: events

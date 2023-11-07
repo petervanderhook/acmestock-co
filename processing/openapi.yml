@@ -1,0 +1,62 @@
+openapi: 3.0.0
+servers: []
+info:
+  description: This is an API for tracking trades of Acme Stock
+  version: "1.0.0"
+  title: Acme Stock Tracker API
+  contact:
+    email: peter@acmetrack.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: traders
+    description: ACME Purchases and Sales App
+  - name: stocktracker
+    description: Tracks purchase and sale of Acme Stock
+paths:
+  /stats:
+    get:
+      summary: Get the event stats
+      operationId: app.get_stats
+      description: Gets stats about stocks and sales
+      responses:
+        '200':
+              description: Returned stats about stocks/sales
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    items:
+                      $ref: '#/components/schemas/stock_stats'
+        '400':
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    stock_stats:
+      type: object
+      required:
+        - num_stocks_listed
+        - average_stock_price
+        - total_shares_available
+        - average_shares_available_per_stock
+      properties:
+        num_stocks_listed:
+          type: integer
+          example: 120
+        average_stock_price:
+          type: number
+          example: 86.32
+        total_shares_available:
+          type: integer
+          example: 4120141
+        average_shares_available_per_stock:
+          type: number
+          example: 8924

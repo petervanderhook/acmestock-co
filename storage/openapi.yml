@@ -1,0 +1,146 @@
+openapi: 3.0.0
+servers: []
+info:
+  description: This is an API for tracking trades of Acme Stock
+  version: "1.0.0"
+  title: Acme Stock Tracker API
+  contact:
+    email: peter@acmetrack.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: traders
+    description: ACME Purchases and Sales App
+  - name: stocktracker
+    description: Tracks purchase and sale of Acme Stock
+paths:
+  /acmestock/get_sell_order:
+    get:
+      tags:
+        - get_sell_order
+      summary: gets sell orders listed after x date
+      operationId: app.get_sell_order
+      description: Gets sell orders listed after x date
+      parameters:
+        - name: timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: 2023-08-29TO9:12:33.001Z
+      responses:
+        '200':
+          description: sale orders fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/sell_order'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /acmestock/get_available_stocks:
+    get:
+      tags:
+        - get_available_stocks
+      summary: gets stocks listed after x date
+      operationId: app.get_available_stocks
+      description: Gets available stocks listed after x date
+      parameters:
+        - name: timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: 2023-08-29TO9:12:33.001Z
+      responses:
+        '200':
+          description: sale orders fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/new_stock'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    new_stock:
+      type: object
+      required:
+        - company
+        - listing_id
+        - total_shares_available
+        - share_price
+        - listing_date
+      properties:
+        company:
+          type: string
+          example: 'Acme Co.'
+        listing_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        total_shares_available:
+          type: integer
+          example: 1000000
+        share_price:
+          type: number
+          example: 100.0
+        listing_date:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33Z'
+        trace_id:
+          type: string
+          format: uuid
+          example: dawd124-4d42-g42g-gh54-hd29e1d821
+    sell_order:
+      type: object
+      required:
+        - seller_id
+        - broker_id
+        - amount
+        - share_price
+        - sale_date
+      properties:
+        seller_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        broker_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        amount:
+          type: integer
+          example: 1
+        share_price:
+          type: number
+          example: 100.0
+        sale_date:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33Z'
+        trace_id:
+          type: string
+          format: uuid
+          example: fawf831-4d42-g42g-gh54-64i15iji4fi4u
