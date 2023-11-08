@@ -1,6 +1,6 @@
 version: 1
 datastore:
-    user: root
+    user: user
     password: password
     host: db
     port: 3306

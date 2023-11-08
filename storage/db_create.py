@@ -12,7 +12,7 @@ def make_db():
     )
 
     c = conn.cursor()
-    c.execute("CREATE DATABASE acmestocks")
+    c.execute("CREATE DATABASE IF NOT EXISTS acmestocks")
     c.execute("USE acmestocks")
 
 if __name__ == '__main__':

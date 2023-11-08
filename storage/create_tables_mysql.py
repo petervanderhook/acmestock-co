@@ -7,11 +7,10 @@ def make_tables():
     conn = mysql.connector.connect(
         host = creds['host'],
         user = creds['user'],
-        password = creds['password']
+        password = creds['password'],
+        database = creds['database']
     )
     c = conn.cursor()
-    c.execute('''CREATE DATABASE IF NOT EXISTS acmestocks''')
-    c.execute('''USE acmestocks''')
     c.execute('''
             CREATE TABLE IF NOT EXISTS stock(
             id_db INTEGER PRIMARY KEY AUTO_INCREMENT,
