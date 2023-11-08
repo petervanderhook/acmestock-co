@@ -72,8 +72,8 @@ services:
     build:
       context: ../storage
     depends_on:
-      - db:
-          condition: service_healthy
+      db:
+        condition: service_healthy
     container_name: storage
     expose:
       - 8090
