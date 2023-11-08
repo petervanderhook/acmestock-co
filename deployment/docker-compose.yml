@@ -77,4 +77,4 @@ services:
       - 8090
       
 volumes:
-  mysql-data: {}
+  my-db: {}
