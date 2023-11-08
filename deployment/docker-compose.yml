@@ -56,7 +56,7 @@ services:
     depends_on:
       - storage
     container_name: processing
-    expose:
+    ports:
       - 8100
 
   receiver:
@@ -65,7 +65,7 @@ services:
     depends_on:
       - storage
     container_name: receiver
-    expose:
+    ports:
       - 8080
 
   storage:
@@ -75,7 +75,7 @@ services:
       db:
         condition: service_healthy
     container_name: storage
-    expose:
+    ports:
       - 8090
       
 volumes:
