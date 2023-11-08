@@ -1,0 +1,32 @@
+version: '1'
+services:
+  audit_log:
+    build:
+      context: ./audit
+    container_name: audit
+    ports:
+      - 8110
+
+  processing:
+    build:
+      context: ./processing
+    depends_on:
+      - storage
+    container_name: processing
+    network_mode: "host"
+    expose:
+      - 8100
+
+  receiver:
+    build:
+      context: ./receiver
+    container_name: receiver
+    expose:
+      - 8080
+
+  storage:
+    build:
+      context: ./storage
+    container_name: storage
+    expose:
+      - 8090
