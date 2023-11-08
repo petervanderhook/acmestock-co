@@ -36,6 +36,7 @@ services:
       - '3306'
     volumes:
       - my-db:/var/lib/mysql
+
   audit_log:
     build:
       context: ../audit
