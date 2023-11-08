@@ -22,7 +22,7 @@ def process_events(event, endpoint):
     endpoint_url = app_config[endpoint]['url']
     endpoint_type = app_config[endpoint]['type']
     trace_id = str(uuid4())
-    logger.info(f"Received {endpoint} event with id: {trace_id}")
+    logger.info(f"Received {endpoint} event with id: {trace_id}, endpoint_type: {endpoint_type}")
     if endpoint_type == 'post':
         event['trace_id'] = trace_id
         logger.info(f'Connecting to kafka service. {app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
