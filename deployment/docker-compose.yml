@@ -49,6 +49,8 @@ services:
     container_name: audit
     ports:
       - 8110
+    expose:
+      - 8110
 
   processing:
     build:
@@ -57,6 +59,8 @@ services:
       - storage
     container_name: processing
     ports:
+      - 8100
+    expose:
       - 8100
 
   receiver:
@@ -67,6 +71,8 @@ services:
     container_name: receiver
     ports:
       - 8080
+    expose:
+      - 8080
 
   storage:
     build:
@@ -76,6 +82,8 @@ services:
         condition: service_healthy
     container_name: storage
     ports:
+      - 8090
+    expose:
       - 8090
       
 volumes:
