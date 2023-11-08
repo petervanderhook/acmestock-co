@@ -8,6 +8,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from base import Base
 from new_stock import Stock
+from create_tables_mysql import make_tables
+from db_create import make_db
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
 from threading import Thread
@@ -100,6 +102,8 @@ def process_messages():
         consumer.commit_offsets()
 
 if __name__ == "__main__":
+    make_db()
+    make_tables()
     t1 = Thread(target=process_messages)
     t1.setDaemon(True)
     t1.start()

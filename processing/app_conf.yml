@@ -4,5 +4,5 @@ datastore:
 scheduler:
   period_sec: 5
 eventstore:
-  url1: http://localhost:8090/acmestock/get_available_stocks
-  url2: http://localhost:8090/acmestock/get_sell_order
+  url1: http://storage:8090/acmestock/get_available_stocks
+  url2: http://storage:8090/acmestock/get_sell_order

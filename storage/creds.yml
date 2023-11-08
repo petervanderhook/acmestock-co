@@ -2,6 +2,6 @@ version: 1
 datastore:
     user: root
     password: password
-    host: storage
+    host: db
     port: 3306
     database: acmestocks
