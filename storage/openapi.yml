@@ -62,7 +62,7 @@ paths:
           schema:
             type: string
             format: date-time
-            example: 2023-08-29TO9:12:33.001Z
+            example: "2016-08-29T09:12:33Z"
       responses:
         '200':
           description: sale orders fetched successfully

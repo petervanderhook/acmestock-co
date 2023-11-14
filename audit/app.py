@@ -9,7 +9,7 @@ import logging, logging.config
 from uuid import uuid4
 from apscheduler.schedulers.background import BackgroundScheduler
 from pykafka import KafkaClient
-
+from flask_cors import CORS, cross_origin
 
 with open('app_conf.yml', 'r') as f:
     app_config = yaml.safe_load(f.read())
@@ -59,6 +59,8 @@ def get_stock_quantity(index):
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
+CORS(app.app)
+app.app.config['CORS_HEADERS'] = 'Content-Type'
 app.add_api("openapi.yml", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":

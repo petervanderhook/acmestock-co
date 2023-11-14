@@ -3,5 +3,7 @@ venv
 audit/__pycache__
 storage/__pycache__
 receiver/__pycache__
+dashboard-ui/__pycache__
+dashboard-ui/node_modules
 processing/__pycache__
 *.log
