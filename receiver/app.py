@@ -15,6 +15,10 @@ with open('log_conf.yml', 'r') as f:
     logging.config.dictConfig(log_config)
 logger = logging.getLogger('basicLogger')
 
+logger.info(f'Connecting to kafka service. {app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
+client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
+logger.info(f'Connected to kafka service.')
+topic = client.topics[str.encode(app_config['events']['topic'])]
 
 
 def process_events(event, endpoint): 
@@ -25,10 +29,6 @@ def process_events(event, endpoint):
     logger.info(f"Received {endpoint} event with id: {trace_id}, endpoint_type: {endpoint_type}")
     if endpoint_type == 'post':
         event['trace_id'] = trace_id
-        logger.info(f'Connecting to kafka service. {app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
-        client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
-        logger.info(f'Conneced to kafka service.')
-        topic = client.topics[str.encode(app_config['events']['topic'])]
         producer = topic.get_sync_producer()
         msg = { "type": endpoint_url,
             "datetime" : datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),

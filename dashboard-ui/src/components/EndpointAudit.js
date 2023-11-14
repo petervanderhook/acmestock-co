@@ -6,7 +6,7 @@ export default function EndpointAudit(props) {
     const [log, setLog] = useState(null);
     const [error, setError] = useState(null)
 	const rand_val = Math.floor(Math.random() * 100); // Get a random event from the event store
-
+    const [index, setIndex] = useState(null);
     const getAudit = () => {
         fetch(`http://stinky.westus3.cloudapp.azure.com:8110/${props.endpoint}?index=${rand_val}`)
             .then(res => res.json())
@@ -30,17 +30,18 @@ export default function EndpointAudit(props) {
         return(<div>Loading...</div>)
     } else if (isLoaded === true){
         let a = JSON.stringify(log)
+        setIndex(rand_val);
         if (props.endpoint == 'get_stock_quantity') {
             return (
                 <div class='div-quantity'>
-                    <h3>{props.endpoint}-{rand_val}</h3>
+                    <h3>{props.endpoint}-{index}</h3>
                     {a}
                 </div>
             )
         } 
         return (
             <div class='div-price'>
-                <h3>{props.endpoint}-{rand_val}</h3>
+                <h3>{props.endpoint}-{index}</h3>
                 {a}
             </div>
         )
