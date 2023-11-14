@@ -50,8 +50,9 @@ def get_sell_order(timestamp):
 
 def get_available_stocks(timestamp):
     with DB_SESSION.begin() as session:
-        timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
-        readings = session.query(Stock).filter(Stock.listing_date >= timestamp_datetime)
+        start_timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
+        end_timestamp_datetime = datetime.datetime.strptime(datetime.datetime.now(), "%Y-%m-%dT%H:%M:%SZ")
+        readings = session.query(Stock).filter(and_(Stock.listing_date >= start_timestamp_datetime, Stock.listing_date <= end_timestamp_datetime))
         results_list = []
         for reading in readings:
             results_list.append(reading.to_dict())
