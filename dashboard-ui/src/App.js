@@ -14,12 +14,19 @@ function App() {
 
     return (
         <div className="App">
-            <img src={logo} className="App-logo" alt="logo" height="150px" width="400px"/>
-            <div>
-                <AppStats/>
-                <h1>Audit Endpoints</h1>
-                {rendered_endpoints}
+            <div className="logo-container">
+                <img src={logo} className="App-logo" alt="logo" height="150px" width="400px"/>
             </div>
+            <h1>Latest Stats</h1>
+            <div className='stats'>
+                <div className='statscontainer'>
+                    <AppStats/>
+            
+                </div>
+            </div>
+            <h1>Audit Endpoints</h1>
+            {rendered_endpoints}
+            <p className="gapper"></p>
         </div>
     );
 

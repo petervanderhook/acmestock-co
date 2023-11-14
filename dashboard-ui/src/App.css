@@ -1,9 +1,20 @@
+* {
+  --field-drab: #6d5837ff;
+  --tyrian-purple: #561f37ff;
+  --old-gold: #bfab25ff;
+  --air-force-blue: #6a8d92ff;
+  --lavender-blush: #f1e4e8ff;
+  color: var(--lavender-blush);
+}
+
 .App {
   text-align: center;
 }
 
 .App-logo {
   pointer-events: none;
+  width: 800px;
+  height: 200px;
 }
 
 .App-header {
@@ -30,4 +41,35 @@
 .StatsTable{
     margin-left: auto;
     margin-right: auto;
+}
+
+
+.stats {
+  padding-top: 250px;
+  padding-bottom: 250px;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  background-image: url(./acmestocks.jpg);
+  position: relative;
+  opacity: 0.8;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 400px;
+
+}
+
+.statscontainer {
+  background-color: black;
+  color:white;
+  opacity: .8;
+  padding-top:50px;
+  padding-bottom:50px;
+  width: 75vw;
+}
+.gapper {
+  padding-bottom: 50px;
 }

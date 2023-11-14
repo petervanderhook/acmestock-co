@@ -30,22 +30,32 @@ export default function AppStats() {
         return(<div>Loading...</div>)
     } else if (isLoaded === true){
         return(
-            <div>
-                <h1>Latest Stats</h1>
+            <div class='latest-stats-div'>
                 <table className={"StatsTable"}>
 					<tbody>
 						<tr>
-							<th>Blood Pressure</th>
-							<th>Heart Rate</th>
+							<td><h5>Average Shares Available per Company Stock:</h5></td>
+                            <td>{stats['average_shares_available_per_stock']}</td>
+                        </tr>
+                        <tr>
+							<td><h5>Average price per all available shares:</h5></td> 
+                            <td>{stats['average_stock_price']}</td>
 						</tr>
-						<tr>
-							<td># BP: {stats['stock_quantity']}</td>
-							<td># HR: {stats['stock_price']}</td>
+                        <tr>
+							<td><h5>Total number of Sell Orders Listed:</h5></td> 
+                            <td>{stats['num_sell_orders_listed']}</td>
+						</tr>
+                        <tr>
+							<td><h5>Total number of Stocks Listed:</h5></td> 
+                            <td>{stats['num_stocks_listed']}</td>
+						</tr>
+                        <tr>
+							<td><h5>Total number of Shares Available:</h5></td> 
+                            <td>{stats['total_shares_available']}</td>
 						</tr>
 					</tbody>
                 </table>
                 <h3>Last Updated: {stats['last_updated']}</h3>
-
             </div>
         )
     }

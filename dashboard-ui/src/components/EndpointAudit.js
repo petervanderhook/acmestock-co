@@ -29,11 +29,19 @@ export default function EndpointAudit(props) {
     } else if (isLoaded === false){
         return(<div>Loading...</div>)
     } else if (isLoaded === true){
-        
+        let a = JSON.stringify(log)
+        if (props.endpoint == 'get_stock_quantity') {
+            return (
+                <div class='div-quantity'>
+                    <h3>{props.endpoint}-{rand_val}</h3>
+                    {a}
+                </div>
+            )
+        } 
         return (
-            <div>
+            <div class='div-price'>
                 <h3>{props.endpoint}-{rand_val}</h3>
-                {JSON.stringify(log)}
+                {a}
             </div>
         )
     }
