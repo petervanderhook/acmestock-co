@@ -7,6 +7,7 @@ import yaml
 from pykafka import KafkaClient
 from datetime import datetime
 import logging, logging.config
+import time
 from uuid import uuid4
 with open('app_conf.yml', 'r') as f:
     app_config = yaml.safe_load(f.read())
@@ -14,11 +15,17 @@ with open('log_conf.yml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 logger = logging.getLogger('basicLogger')
-
-logger.info(f'Connecting to kafka service. {app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
-client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
-logger.info(f'Connected to kafka service.')
-topic = client.topics[str.encode(app_config['events']['topic'])]
+retries = 1
+while retries < 31:
+    logger.info(f'ATTEMPT {retries}: Connecting to kafka service. {app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
+    try:
+        client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
+        topic = client.topics[str.encode(app_config['events']['topic'])]
+        retries = 31
+        logger.info(f'Connected to kafka service after {retries} attempts.')
+    except:
+        time.sleep(5)
+        retries += 1
 
 
 def process_events(event, endpoint): 
