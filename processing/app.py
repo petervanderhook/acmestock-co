@@ -22,7 +22,6 @@ def init_scheduler():
     sched.add_job(populate_stats,
                   'interval',
                   seconds=app_config['scheduler']['period_sec'],
-                  max_running_time=120,
                   max_instances=30)
     sched.start()
 
