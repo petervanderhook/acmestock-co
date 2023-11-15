@@ -25,8 +25,8 @@ with open('creds.yml', 'r') as f:
 import os
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
     print("In Test Environment")
-    app_conf_file = "/home/azureuser/config/storage/app_conf.yml"
-    log_conf_file = "/home/azureuser/config/storage/log_conf.yml"
+    app_conf_file = "/config/storage/app_conf.yml"
+    log_conf_file = "/config/storage/log_conf.yml"
 else:
     print("In Dev Environment")
     app_conf_file = "app_conf.yml"
