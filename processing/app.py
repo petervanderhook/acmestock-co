@@ -10,13 +10,26 @@ from flask_cors import CORS, cross_origin
 from uuid import uuid4
 from apscheduler.schedulers.background import BackgroundScheduler
 
-with open('app_conf.yml', 'r') as f:
+import os
+if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
+    print("In Test Environment")
+    app_conf_file = "/config/app_conf.yml"
+    log_conf_file = "/config/log_conf.yml"
+else:
+    print("In Dev Environment")
+    app_conf_file = "app_conf.yml"
+    log_conf_file = "log_conf.yml"
+with open(app_conf_file, 'r') as f:
     app_config = yaml.safe_load(f.read())
-with open('./log_conf.yml', 'r') as f:
+    # External Logging Configuration
+with open(log_conf_file, 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
-
 logger = logging.getLogger('basicLogger')
+logger.info("App Conf File: %s" % app_conf_file)
+logger.info("Log Conf File: %s" % log_conf_file)
+            
+
 def init_scheduler():
     sched = BackgroundScheduler(daemon=True)
     sched.add_job(populate_stats,
@@ -56,8 +69,8 @@ def populate_stats():
     shares_available = datastore['total_shares_available']
     for dataset in data_stocks:
         data_stock_count += 1
-        share_prices += dataset['share_price']
-        shares_available += dataset['total_shares_available']
+        share_prices += float(dataset['share_price'])
+        shares_available += int(dataset['total_shares_available'])
     for dataset in data_orders:
         sell_orders += 1
     

@@ -52,6 +52,10 @@ services:
     depends_on:
       - storage
     container_name: audit
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/audit_log:/config
     ports:
       - '8110:8110'
 
@@ -61,6 +65,10 @@ services:
     depends_on:
       - storage
     container_name: processing
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/audit_log:/config
     ports:
       - '8100:8100'
 
@@ -70,6 +78,10 @@ services:
     depends_on:
       - storage
     container_name: receiver
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/audit_log:/config
     ports:
       - '8080:8080'
 
@@ -80,6 +92,10 @@ services:
       db:
         condition: service_healthy
     container_name: storage
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/audit_log:/config
     ports:
       - '8090:8090'
 volumes:
