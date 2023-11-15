@@ -15,14 +15,18 @@ with open('log_conf.yml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 logger = logging.getLogger('basicLogger')
+
+
+
 retries = 1
 while retries < 31:
     logger.info(f'ATTEMPT {retries}: Connecting to kafka service. {app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
     try:
         client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
         topic = client.topics[str.encode(app_config['events']['topic'])]
-        retries = 31
         logger.info(f'Connected to kafka service after {retries} attempts.')
+        retries = 31
+        break
     except:
         time.sleep(5)
         retries += 1
