@@ -26,8 +26,11 @@ while retries < 31:
         topic = client.topics[str.encode(app_config['events']['topic'])]
         logger.info(f'Connected to kafka service after {retries} attempts.')
         retries = 31
+        producer = topic.get_sync_producer()
         break
-    except:
+        # GET ME OUT
+    except () as e:
+        logger.error(f'ERROR connecting to kafka on attempt {retries}: {e}')
         time.sleep(5)
         retries += 1
 
@@ -40,7 +43,6 @@ def process_events(event, endpoint):
     logger.info(f"Received {endpoint} event with id: {trace_id}, endpoint_type: {endpoint_type}")
     if endpoint_type == 'post':
         event['trace_id'] = trace_id
-        producer = topic.get_sync_producer()
         msg = { "type": endpoint_url,
             "datetime" : datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
             "payload": event }

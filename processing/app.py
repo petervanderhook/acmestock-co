@@ -42,8 +42,8 @@ def populate_stats():
     current_time = current_time.split('.')[0] + 'Z'
     current_time.replace(' ', 'T')
     current_time = current_time.split(' ')[0] + "T" + current_time.split(' ')[1]
-    res1 = requests.get(f"{app_config['eventstore']['url1']}?timestamp={datastore['last_updated']}")
-    res2 = requests.get(f"{app_config['eventstore']['url2']}?timestamp={datastore['last_updated']}")
+    res1 = requests.get(f"{app_config['eventstore']['url1']}?timestamp={datastore['last_updated']}&end_timestamp={current_time}")
+    res2 = requests.get(f"{app_config['eventstore']['url2']}?timestamp={datastore['last_updated']}&end_timestamp={current_time}")
     if str(res1.status_code) != '200':
         logger.error(f"Error {res1.status_code} on request for available stocks.")
     if str(res2.status_code) != '200':

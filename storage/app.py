@@ -16,6 +16,8 @@ from threading import Thread
 from sell_order import SellOrder
 import yaml
 import logging, logging.config
+import time
+from sqlalchemy import and_
 
 with open('creds.yml', 'r') as f:
     creds = yaml.safe_load(f.read())
@@ -37,10 +39,10 @@ Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 # Endpoints
-def get_sell_order(timestamp):
+def get_sell_order(timestamp, end_timestamp):
     with DB_SESSION.begin() as session:
         timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
-        readings = session.query(SellOrder).filter(SellOrder.sale_date >= timestamp_datetime)
+        readings = session.query(SellOrder).filter(and_(SellOrder.sale_date >= timestamp_datetime, SellOrder.sale_date <= end_timestamp))
         results_list = []
         for reading in readings:
             results_list.append(reading.to_dict())
@@ -48,11 +50,10 @@ def get_sell_order(timestamp):
     logger.info(f"Query for sale orders after {timestamp} returns {len(results_list)} results.")
     return results_list, 200
 
-def get_available_stocks(timestamp):
+def get_available_stocks(timestamp, end_timestamp):
     with DB_SESSION.begin() as session:
         start_timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
-        end_timestamp_datetime = datetime.datetime.strptime(datetime.datetime.now(), "%Y-%m-%dT%H:%M:%SZ")
-        readings = session.query(Stock).filter(and_(Stock.listing_date >= start_timestamp_datetime, Stock.listing_date <= end_timestamp_datetime))
+        readings = session.query(Stock).filter(and_(Stock.listing_date >= start_timestamp_datetime, Stock.listing_date <= end_timestamp))
         results_list = []
         for reading in readings:
             results_list.append(reading.to_dict())
@@ -82,8 +83,18 @@ app.add_api('openapi.yml', strict_validation=True, validate_responses=True)
 def process_messages():
     """ Process event messages """
     hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
-    client = KafkaClient(hosts=hostname)
-    topic = client.topics[str.encode(app_config["events"]["topic"])]
+    retries = 0
+    logger.debug(f"Attemping to connect to Kafka")
+    while retries < 30:
+        try:
+            client = KafkaClient(hosts=hostname)
+            topic = client.topics[str.encode(app_config["events"]["topic"])]
+            logger.debug(f"Connected to Kafka on attempt {retries}")
+            break
+        except () as e:
+            logger.error(f"ERROR connecting to kafka db on attempt {retries}: {e}")
+            retries += 1
+            time.sleep(5)
     # Create a consume on a consumer group, that only reads new messages
     # (uncommitted messages) when the service re-starts (i.e., it doesn't
     # read all the old messages from the history in the message queue).
