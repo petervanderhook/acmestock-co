@@ -6,7 +6,7 @@ services:
       - "2181"
     hostname: zookeeper
     volumes:
-      - /home/azureuser/zookeeper/data:/opt/zookeeper-3.4.13/data
+      - /home/azureuser/zookeeper/data
   kafka:
     image: wurstmeister/kafka
     command: [start-kafka.sh]
@@ -47,45 +47,62 @@ services:
       - my-db:/var/lib/mysql
 
   audit_log:
-    image: audit_log
+    build:
+      context: ../audit
     depends_on:
       - storage
     container_name: audit
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/audit_log:/config
+      - /home/azureuser/logs:/logs
     ports:
       - '8110:8110'
 
   processing:
-    image: processing
+    build:
+      context: ../processing
     depends_on:
       - storage
     container_name: processing
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/audit_log:/config
+      - /home/azureuser/logs:/logs
+      - processing-db:/data
     ports:
       - '8100:8100'
 
   receiver:
-    image: receiver
+    build:
+      context: ../receiver
     depends_on:
       - storage
     container_name: receiver
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/audit_log:/config
+      - /home/azureuser/logs:/logs
     ports:
       - '8080:8080'
 
   storage:
-    image: storage
+    build:
+      context: ../storage
     depends_on:
       db:
         condition: service_healthy
     container_name: storage
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/audit_log:/config
+      - /home/azureuser/logs:/logs
     ports:
       - '8090:8090'
-
-  dashboard:
-    image: dashboard
-    ports:
-      - "3000:3000"
-    depends_on:
-      - "processing"
-      - "audit_log"
-
 volumes:
   my-db: {}
+  processing-db: {}
