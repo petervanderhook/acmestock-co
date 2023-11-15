@@ -1,8 +1,8 @@
 #!/bin/bash
 
-docker compose -f ./deployment/docker-compose.yml down -v
+docker compose -f ./deployment/docker-compose.yml down
 docker image prune -af
-docker volume prune -af
+#docker volume prune -af
 docker image build -t storage:latest ./storage/
 docker image build -t receiver:latest ./receiver/
 docker image build -t dashboard:latest ./dashboard-ui/
