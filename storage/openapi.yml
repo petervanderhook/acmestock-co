@@ -30,6 +30,13 @@ paths:
             type: string
             format: date-time
             example: 2023-08-29TO9:12:33.001Z
+        - name: end_timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: "2024-08-29T09:12:33Z"
       responses:
         '200':
           description: sale orders fetched successfully
@@ -62,7 +69,14 @@ paths:
           schema:
             type: string
             format: date-time
-            example: "2016-08-29T09:12:33Z"
+            example: "2023-08-29T09:12:33Z"
+        - name: end_timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: "2024-08-29T09:12:33Z"
       responses:
         '200':
           description: sale orders fetched successfully
