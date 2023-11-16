@@ -63,14 +63,16 @@ def populate_stats():
         logger.error(f"Error {res2.status_code} on request for sale orders.")
     data_stocks = res1.json()
     data_orders = res2.json()
+    print(data_stocks)
+    print(data_orders)
     sell_orders = datastore['num_sell_orders_listed']
     data_stock_count = datastore['num_stocks_listed']
     share_prices = data_stock_count * datastore['average_stock_price']
     shares_available = datastore['total_shares_available']
     for dataset in data_stocks:
         data_stock_count += 1
-        share_prices += float(dataset['share_price'])
-        shares_available += int(dataset['total_shares_available'])
+        share_prices += dataset['share_price']
+        shares_available += dataset['total_shares_available']
     for dataset in data_orders:
         sell_orders += 1
     
