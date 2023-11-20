@@ -31,7 +31,7 @@ export default function EndpointAudit(props) {
         return(<div>Loading...</div>)
     } else if (isLoaded === true){
         let a = JSON.stringify(log)
-        if (props.endpoint == 'get_stock_quantity') {
+        if (props.endpoint === 'get_stock_quantity') {
             return (
                 <div class='div-quantity'>
                     <h3>{props.endpoint}-{index}</h3>

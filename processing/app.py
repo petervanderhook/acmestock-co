@@ -48,7 +48,7 @@ def populate_stats():
     except FileNotFoundError:
         logger.error(f"{app_config['datastore']['filename']} Statistics file not found.")
         with open(app_config['datastore']['filename'], 'w+') as f:
-            file_data = {"num_sell_orders_listed": 0,"num_stocks_listed": 0, "average_stock_price": 0, "total_shares_available": 0, "average_shares_available_per_stock": 0, "last_updated": "2023-10-10T10:52:57Z"}
+            file_data = {"num_sell_orders_listed": 0,"num_stocks_listed": 0, "average_stock_price": 0, "total_shares_available": 0, "average_shares_available_per_stock": 0, "last_updated": "2023-10-10T10:52:57.000Z"}
             f.write(json.dumps(file_data))
         return
     current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
