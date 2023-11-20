@@ -108,7 +108,7 @@ components:
         listing_date:
           type: string
           format: date-time
-          example: '2016-08-29T09:12:33Z'
+          example: '2016-08-29T09:12:33.000Z'
       type: object
     StockQuantity:
       required:
@@ -125,5 +125,5 @@ components:
         listing_date:
           type: string
           format: date-time
-          example: '2016-08-29T09:12:33Z'
+          example: '2016-08-29T09:12:33.000Z'
       type: object

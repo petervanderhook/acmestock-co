@@ -122,7 +122,7 @@ components:
         listing_date:
           type: string
           format: date-time
-          example: '2016-08-29T09:12:33Z'
+          example: '2016-08-29T09:12:33.123Z'
         trace_id:
           type: string
           format: uuid
@@ -153,7 +153,7 @@ components:
         sale_date:
           type: string
           format: date-time
-          example: '2016-08-29T09:12:33Z'
+          example: '2016-08-29T09:12:33.123Z'
         trace_id:
           type: string
           format: uuid
