@@ -46,6 +46,16 @@ services:
     volumes:
       - my-db:/var/lib/mysql
 
+  dashboard:
+    build:
+      context: ../dashboard
+    container_name: dashboard
+    depends_on:
+      - storage
+      - processing
+      - kafka
+    ports:
+      - '3000:3000'
   audit_log:
     build:
       context: ../audit
