@@ -48,7 +48,7 @@ services:
 
   dashboard:
     build:
-      context: ../dashboard
+      context: ../dashboard-ui
     container_name: dashboard
     depends_on:
       - storage
