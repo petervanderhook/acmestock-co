@@ -51,7 +51,7 @@ DB_SESSION = sessionmaker(bind=DB_ENGINE)
 # Endpoints
 def get_sell_order(timestamp, end_timestamp):
     with DB_SESSION.begin() as session:
-        timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
+        timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
         readings = session.query(SellOrder).filter(and_(SellOrder.sale_date >= timestamp_datetime, SellOrder.sale_date <= end_timestamp))
         results_list = []
         for reading in readings:
@@ -62,7 +62,7 @@ def get_sell_order(timestamp, end_timestamp):
 
 def get_available_stocks(timestamp, end_timestamp):
     with DB_SESSION.begin() as session:
-        start_timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
+        start_timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
         readings = session.query(Stock).filter(and_(Stock.listing_date >= start_timestamp_datetime, Stock.listing_date <= end_timestamp))
         results_list = []
         for reading in readings:

@@ -4,7 +4,6 @@ from connexion import NoContent
 import swagger_ui_bundle
 import requests
 import yaml
-from datetime import datetime
 import logging, logging.config
 from uuid import uuid4
 from apscheduler.schedulers.background import BackgroundScheduler
