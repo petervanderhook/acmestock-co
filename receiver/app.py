@@ -56,7 +56,7 @@ def process_events(event, endpoint):
     if endpoint_type == 'post':
         event['trace_id'] = trace_id
         msg = { "type": endpoint_url,
-            "datetime" : datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f"),
+            "datetime" : datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
             "payload": event }
         msg_str = json.dumps(msg)
         producer.produce(msg_str.encode('utf-8'))

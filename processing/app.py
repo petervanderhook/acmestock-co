@@ -51,7 +51,7 @@ def populate_stats():
             file_data = {"num_sell_orders_listed": 0,"num_stocks_listed": 0, "average_stock_price": 0, "total_shares_available": 0, "average_shares_available_per_stock": 0, "last_updated": "2023-10-10T10:52:57.000Z"}
             f.write(json.dumps(file_data))
         return
-    current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
+    current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
     res1 = requests.get(f"{app_config['eventstore']['url1']}?timestamp={datastore['last_updated']}&end_timestamp={current_time}")
     res2 = requests.get(f"{app_config['eventstore']['url2']}?timestamp={datastore['last_updated']}&end_timestamp={current_time}")
     if str(res1.status_code) != '200':
