@@ -55,7 +55,8 @@ services:
       - audit_log
       - processing
       - dashboard
-    ports: '80:80'
+    ports: 
+      - '80:80'
     networks:
       - api.network
   dashboard:
