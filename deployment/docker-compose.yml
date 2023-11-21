@@ -50,7 +50,7 @@ services:
       - my-db:/var/lib/mysql
     networks:
       - api.network
-      
+
   nginx:
     image: nginx:latest
     volumes:
@@ -78,12 +78,14 @@ services:
       - '3000'
     networks:
       - api.network
+
   audit_log:
     build:
       context: ../audit
     depends_on:
       - storage
     container_name: audit
+    hostname: audit
     environment:
       - TARGET_ENV=test
     volumes:
