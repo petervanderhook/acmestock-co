@@ -8,7 +8,7 @@ def make_db():
     conn = mysql.connector.connect(
         host = creds['host'],
         user = creds['user'],
-        port = creds['port'],
+        port = int(creds['port']),
         password = creds['password']
     )
 

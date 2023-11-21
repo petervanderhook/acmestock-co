@@ -5,6 +5,7 @@ services:
     ports:
       - "2181"
     hostname: zookeeper
+    container_name: zookeeper
     volumes:
       - /home/azureuser/zookeeper/data
   kafka:
@@ -13,6 +14,7 @@ services:
     ports:
       - "9092:9092"
     hostname: kafka
+    container_name: kafka
     environment:
       KAFKA_CREATE_TOPICS: "events:1:1" # topic:partition:replicas
       KAFKA_ADVERTISED_HOST_NAME: stinky.westus3.cloudapp.azure.com # docker-machine ip
@@ -55,6 +57,7 @@ services:
       - audit_log
       - processing
       - dashboard
+    container_name: nginx
     ports: 
       - '80:80'
     networks:
