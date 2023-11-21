@@ -6,6 +6,7 @@ with open('creds.yml', 'r') as f:
 def make_tables():
     conn = mysql.connector.connect(
         host = creds['host'],
+        port = creds['port'],
         user = creds['user'],
         password = creds['password'],
         database = creds['database']

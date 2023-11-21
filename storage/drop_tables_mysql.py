@@ -7,6 +7,7 @@ with open('creds.yml', 'r') as f:
 conn = mysql.connector.connect(
     host = creds['host'],
     user = creds['user'],
+    port = creds['port'],
     password = creds['password']
 )
 
