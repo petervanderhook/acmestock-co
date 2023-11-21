@@ -6,10 +6,10 @@ with open('creds.yml', 'r') as f:
 
 def make_db():
     conn = mysql.connector.connect(
-        host = creds['host'],
-        user = creds['user'],
-        port = int(creds['port']),
-        password = creds['password']
+        host = 'database',
+        user = 'root',
+        port = 3306,
+        password = 'password'
     )
 
     c = conn.cursor()
