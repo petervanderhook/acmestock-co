@@ -87,9 +87,6 @@ def push_stock(body):
 
     return NoContent, 201
 
-app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api('openapi.yml', strict_validation=True, validate_responses=True)
-
 def process_messages():
     """ Process event messages """
     hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
@@ -122,6 +119,9 @@ def process_messages():
         elif msg["type"] == "new_sell_order":
             push_sell_order(payload)
         consumer.commit_offsets()
+
+app = connexion.FlaskApp(__name__, specification_dir='')
+app.add_api('openapi.yml', base_path='/storage', strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
     make_db()

@@ -45,7 +45,19 @@ services:
       retries: 30
     volumes:
       - my-db:/var/lib/mysql
-
+  nginx:
+    image: nginx:latest
+    volumes:
+      - /home/ubuntu/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - receiver
+      - storage
+      - audit_log
+      - processing
+      - dashboard
+    ports: '80:80'
+    networks:
+      - api.network
   dashboard:
     build:
       context: ../dashboard-ui
@@ -55,7 +67,9 @@ services:
       - processing
       - kafka
     ports:
-      - '3000:3000'
+      - '3000'
+    networks:
+      - api.network
   audit_log:
     build:
       context: ../audit
@@ -68,7 +82,9 @@ services:
       - /home/azureuser/config/audit_log:/config/audit_log
       - /home/azureuser/logs:/logs
     ports:
-      - '8110:8110'
+      - '8110'
+    networks:
+      - api.network
 
   processing:
     build:
@@ -83,7 +99,9 @@ services:
       - /home/azureuser/logs:/logs
       - processing-db:/data
     ports:
-      - '8100:8100'
+      - '8100'
+    networks:
+      - api.network
 
   receiver:
     build:
@@ -97,7 +115,9 @@ services:
       - /home/azureuser/config/receiver:/config/receiver
       - /home/azureuser/logs:/logs
     ports:
-      - '8080:8080'
+      - '8080'
+    networks:
+      - api.network
 
   storage:
     build:
@@ -112,7 +132,11 @@ services:
       - /home/azureuser/config/storage:/config/storage
       - /home/azureuser/logs:/logs
     ports:
-      - '8090:8090'
+      - '8090'
+    networks:
+      - api.network
 volumes:
   my-db: {}
   processing-db: {}
+networks:
+  api.network:
