@@ -131,7 +131,6 @@ services:
       context: ../receiver
     depends_on:
       - storage
-    container_name: receiver
     hostname: receiver
     environment:
       - TARGET_ENV=test
