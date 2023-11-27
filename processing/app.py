@@ -38,6 +38,8 @@ def init_scheduler():
                   max_instances=30)
     sched.start()
 
+def health():
+    return 200
 
 def populate_stats():
     # Periodically update stats

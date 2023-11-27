@@ -78,7 +78,20 @@ services:
       - '3000'
     networks:
       - api.network
-
+  health:
+    build:
+      context: ../health
+    container_name: health
+    hostname: health
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/health:/config/health
+      - /home/azureuser/logs:/logs
+    ports:
+      - '8120'
+    networks:
+      - api.network
   audit_log:
     build:
       context: ../audit

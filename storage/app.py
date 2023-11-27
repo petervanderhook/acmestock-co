@@ -60,6 +60,8 @@ def get_sell_order(timestamp, end_timestamp):
     logger.info(f"Query for sale orders after {timestamp} returns {len(results_list)} results.")
     return results_list, 200
 
+def health():
+    return 200
 def get_available_stocks(timestamp, end_timestamp):
     with DB_SESSION.begin() as session:
         start_timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")

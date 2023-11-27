@@ -63,6 +63,8 @@ def process_events(event, endpoint):
         logger.info(f"Returned event {endpoint} response. (ID: {trace_id} with status code {201})")
         return NoContent, 201
 
+def health():
+    return 200
 def add_new_stock(body):
     return process_events(body, 'new_stock')
 

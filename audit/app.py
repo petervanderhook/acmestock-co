@@ -67,6 +67,8 @@ def get_stock_quantity(index):
     print("RESPONSE", res)
     return res
 
+def health():
+    return 200
 
 app = connexion.FlaskApp(__name__, specification_dir='')
 if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":

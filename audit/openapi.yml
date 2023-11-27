@@ -54,6 +54,14 @@ paths:
                 properties:
                   message:
                     type: string
+  /health:
+    get:
+      summary: returns 200 if service is running.
+      operationId: app.health
+      description: Return 200
+      responses:
+        '200':
+          description: Healthy and running returns 200
   /get_stock_price:
     get:
       summary: gets a stock price reading from history
