@@ -61,6 +61,7 @@ services:
       - audit_log
       - processing
       - dashboard
+      - health
     container_name: nginx
     ports: 
       - '80:80'
