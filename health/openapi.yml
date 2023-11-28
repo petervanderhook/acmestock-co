@@ -15,7 +15,7 @@ tags:
   - name: stocktracker
     description: Tracks purchase and sale of Acme Stock
 paths:
-  /health/status:
+  /status:
     get:
       summary: Get the service statuses 
       operationId: app.status
