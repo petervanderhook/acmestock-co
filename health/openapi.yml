@@ -15,7 +15,7 @@ tags:
   - name: stocktracker
     description: Tracks purchase and sale of Acme Stock
 paths:
-  /stats:
+  /status:
     get:
       summary: Get the event stats
       operationId: app.get_stats
