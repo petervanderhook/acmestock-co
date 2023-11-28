@@ -3,6 +3,7 @@ import './App.css';
 
 import EndpointAudit from './components/EndpointAudit'
 import AppStats from './components/AppStats'
+import HealthStats from './components/HealthStats'
 
 function App() {
 
@@ -27,6 +28,13 @@ function App() {
             <h1>Audit Endpoints</h1>
             {rendered_endpoints}
             <p className="gapper"></p>
+            <div className='stats'>
+                <div className='statscontainer'>
+                    <h3>Health Stats</h3>
+                    <HealthStatsStats/>
+            
+                </div>
+            </div>
         </div>
     );
 

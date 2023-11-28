@@ -98,7 +98,7 @@ def populate_stats():
     except TimeoutError:
         logger.error(f"Error, request timed out for {app_config['eventstore']['url4NAME']}")
     # Write to file
-    file_data = {app_config['eventstore']['url1']: status1, app_config['eventstore']['url2NAME']: status2, app_config['eventstore']['url3NAME']: status3, app_config['eventstore']['url4NAME']: status4, "last_updated": current_time}
+    file_data = {app_config['eventstore']['url1NAME']: status1, app_config['eventstore']['url2NAME']: status2, app_config['eventstore']['url3NAME']: status3, app_config['eventstore']['url4NAME']: status4, "last_updated": current_time}
     try:
         with open(app_config['datastore']['filename'], 'w') as f:
             f.write(json.dumps(file_data))

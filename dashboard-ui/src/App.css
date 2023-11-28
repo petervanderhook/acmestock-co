@@ -73,3 +73,7 @@
 .gapper {
   padding-bottom: 50px;
 }
+tbody {
+  display: flex;
+  flex-direction: row ;
+}
