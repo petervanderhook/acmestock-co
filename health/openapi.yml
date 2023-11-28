@@ -18,8 +18,8 @@ paths:
   /status:
     get:
       summary: Get the event stats
-      operationId: app.get_stats
-      description: Gets stats about stocks and sales
+      operationId: app.get_status
+      description: Gets status about service states
       responses:
         '200':
               description: Returns health inforamtion and time

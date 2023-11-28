@@ -108,9 +108,7 @@ def populate_stats():
     logger.info(f"{file_data}")
     logger.info("Periodic Health Check Complete")
 
-def get_stats():
-    # Called every 20 seconds
-    # Periodically update stats
+def get_status():
     logger.info("Health satus GET request received.")
     try:
         with open(app_config['datastore']['filename'], 'r') as f:
@@ -130,4 +128,4 @@ app.add_api("openapi.yml", base_path='/processing', strict_validation=True, vali
 
 if __name__ == "__main__":
     init_scheduler()
-    app.run(host='0.0.0.0', port=8100, use_reloader=False)
+    app.run(host='0.0.0.0', port=8120, use_reloader=False)
