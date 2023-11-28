@@ -88,6 +88,7 @@ services:
     volumes:
       - /home/azureuser/config/health:/config/health
       - /home/azureuser/logs:/logs
+      - processing-db:/data
     ports:
       - '8120'
     networks:

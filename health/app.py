@@ -108,7 +108,6 @@ def populate_stats():
     logger.info(f"{file_data}")
     logger.info("Periodic Health Check Complete")
 
-    
 def get_stats():
     # Called every 20 seconds
     # Periodically update stats
