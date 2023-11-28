@@ -21,6 +21,7 @@ function App() {
             <h1>Latest Stats</h1>
             <div className='stats'>
                 <div className='statscontainer'>
+                    <h3>Stock Status</h3>
                     <AppStats/>
             
                 </div>

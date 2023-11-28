@@ -28,7 +28,7 @@ paths:
                   schema:
                     type: object
                     items:
-                      $ref: '#/components/schemas/stock_stats'
+                      $ref: '#/components/schemas/status'
         '400':
           description: Invalid Request
           content:
@@ -40,7 +40,7 @@ paths:
                     type: string
 components:
   schemas:
-    stock_stats:
+    status:
       type: object
       required:
         - receiver
