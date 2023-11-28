@@ -4,7 +4,7 @@ datastore:
 scheduler:
   period_sec: 20
 eventstore:
-  url1: http://stinky.westus3.cloudapp.azure.com/storage/acmestock/health
+  url1: http://stinky.westus3.cloudapp.azure.com/storage/acmestock/health 
   url2: http://stinky.westus3.cloudapp.azure.com/receiver/acmestock/health
   url3: http://stinky.westus3.cloudapp.azure.com/processing/acmestock/health
   url4: http://stinky.westus3.cloudapp.azure.com/audit/acmestock/health
