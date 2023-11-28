@@ -33,7 +33,6 @@ export default function AppStats() {
             <div class='latest-stats-div'>
                 <table className={"StatsTable"}>
 					<tbody>
-                        <h1>Health Status</h1>
 						<tr>
 							<td><h5><b>Storage Service:</b></h5></td>
                             <td>{stats['storage']}</td>
