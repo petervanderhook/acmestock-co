@@ -31,7 +31,7 @@ function App() {
             <div className='stats'>
                 <div className='statscontainer'>
                     <h3>Health Stats</h3>
-                    <HealthStatsStats/>
+                    <HealthStats/>
             
                 </div>
             </div>
