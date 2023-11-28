@@ -98,12 +98,12 @@ def populate_stats():
     except TimeoutError:
         logger.error(f"Error, request timed out for {app_config['eventstore']['url4NAME']}")
     # Write to file
-    file_data = {f"{app_config['eventstore']['url1']}": f"{status1}", f"{app_config['eventstore']['url2NAME']}": f"{status2}", f"{app_config['eventstore']['url3NAME']}": f"{status3}", f"{app_config['eventstore']['url4NAME']}": f"{status4}", "last_updated": current_time}
+    file_data = {app_config['eventstore']['url1']: status1, app_config['eventstore']['url2NAME']: status2, app_config['eventstore']['url3NAME']: status3, app_config['eventstore']['url4NAME']: status4, "last_updated": current_time}
     try:
         with open(app_config['datastore']['filename'], 'w') as f:
-            f.write(file_data)
+            f.write(json.dumps(file_data))
     except:
-        logger.error("Error writing health stats to file.")
+        logger.error("ERROR: Unable to write health status to file.")
         
     logger.info(f"{file_data}")
     logger.info("Periodic Health Check Complete")
