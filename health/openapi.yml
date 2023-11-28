@@ -17,8 +17,8 @@ tags:
 paths:
   /health/status:
     get:
-      summary: Get the event stats
-      operationId: app.get_status
+      summary: Get the service statuses 
+      operationId: app.status
       description: Gets status about service states
       responses:
         '200':
