@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import '../App.css';
 
-export default function AppStats() {
+export default function HealthStats() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [stats, setStats] = useState({});
     const [error, setError] = useState(null)
 
 	const getStats = () => {
 	
-        fetch(`http://health:8120/status`)
+        fetch(`http://stinky.westus3.cloudapp.azure.com:80/health/status`)
             .then(res => res.json())
             .then((result)=>{
 				console.log("Received Stats")
