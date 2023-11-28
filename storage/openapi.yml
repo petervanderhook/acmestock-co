@@ -55,7 +55,7 @@ paths:
                 properties:
                   message:
                     type: string
-  /health:
+  /acmestock/health:
     get:
       summary: returns 200 if service is running.
       operationId: app.health

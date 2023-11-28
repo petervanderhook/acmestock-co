@@ -15,7 +15,7 @@ tags:
   - name: stocktracker
     description: Tracks purchase and sale of Acme Stock
 paths:
-  /health:
+  /acmestock/health:
     get:
       summary: returns 200 if service is running.
       operationId: app.health

@@ -61,7 +61,7 @@ def populate_stats():
     try:
         res1 = requests.get(f"{app_config['eventstore']['url1']}")
         if str(res1.status_code) != '200':
-            logger.error(f"Error {res1.status_code} on request for available stocks.")
+            logger.error(f"Error {res1.status_code} on request for health status.")
         else:
             logger.info(f"{app_config['eventstore']['url1NAME'] } health check response received and service is running.")
             status1 = "Running."
