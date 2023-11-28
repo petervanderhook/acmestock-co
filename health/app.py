@@ -12,7 +12,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 import os
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
-    print("In Test Environment")
+    print("In Test Environment ")
     app_conf_file = "/config/health/app_conf.yml"
     log_conf_file = "/config/health/log_conf.yml"
 else:
@@ -108,7 +108,6 @@ def populate_stats():
     logger.info(f"{file_data}")
     logger.info("Periodic Health Check Complete")
 
-    
 def get_stats():
     # Called every 20 seconds
     # Periodically update stats
