@@ -13,6 +13,8 @@ mkdir /home/azureuser/config/receiver
 mkdir /home/azureuser/config/storage
 mkdir /home/azureuser/config/audit_log
 mkdir /home/azureuser/config/processing
+mkdir /home/azureuser/config/health
+cp /home/azureuser/acmestock-co/health/log_conf.yml /home/azureuser/acmestock-co/health/app_conf.yml /home/azureuser/config/health/
 cp /home/azureuser/acmestock-co/storage/log_conf.yml /home/azureuser/acmestock-co/storage/app_conf.yml /home/azureuser/config/storage/
 
 cp /home/azureuser/acmestock-co/receiver/log_conf.yml /home/azureuser/acmestock-co/receiver/app_conf.yml /home/azureuser/config/receiver/

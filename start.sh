@@ -1,3 +1,4 @@
+bash ./bigbash.sh
 bash ./img-build.sh
 
 docker compose -f ./deployment/docker-compose.yml up -d --scale receiver=3
