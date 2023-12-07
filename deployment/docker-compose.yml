@@ -74,7 +74,7 @@ services:
   dashboard:
     become: yes
     build:
-      context: ../dashboard-ui
+      context: ../dashboard
     container_name: dashboard
     depends_on:
       - storage
