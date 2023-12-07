@@ -1,15 +1,14 @@
 import json
+import time
+import os
+from uuid import uuid4
+from datetime import datetime
 import connexion
 from connexion import NoContent
 import swagger_ui_bundle
-import requests
 import yaml
 from pykafka import KafkaClient
-from datetime import datetime
 import logging, logging.config
-import time
-from uuid import uuid4
-import os
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
     print("In Test Environment")
     app_conf_file = "/config/receiver/app_conf.yml"
@@ -34,13 +33,16 @@ while retries < 31:
         client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
         topic = client.topics[str.encode(app_config['events']['topic'])]
         logger.info(f'Connected to kafka service after {retries} attempts.')
-        retries = 31
         producer = topic.get_sync_producer()
         break
     except () as e:
         logger.error(f'ERROR connecting to kafka on attempt {retries}: {e}')
         time.sleep(5)
         retries += 1
+        if retries == 31:
+            logger.error(f'ERROR Unable to connect to Kafka service. Exiting: {e}')
+            raise ConnectionError
+        
 def process_events(event, endpoint):
     print(endpoint, app_config[endpoint])
     endpoint_url = app_config[endpoint]['url']
