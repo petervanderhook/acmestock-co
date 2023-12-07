@@ -1,9 +1,9 @@
 @Library('pv_ci') _
 
-python_build('ogpeter', 'receiver', 8080)
+python_build('ogpeter', 'receiver', 8081)
 
-python_build('ogpeter', 'storage', 8090)
+python_build('ogpeter', 'storage', 8091)
 
-python_build('ogpeter', 'processing', 8100)
+python_build('ogpeter', 'processing', 8101)
 
-python_build('ogpeter', 'audit', 8110)
+python_build('ogpeter', 'audit', 8111)
