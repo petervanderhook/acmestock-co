@@ -20,15 +20,12 @@ else:
     log_conf_file = "log_conf.yml"
 with open(app_conf_file, 'r') as f:
     app_config = yaml.safe_load(f.read())
-    # External Logging Configuration
 with open(log_conf_file, 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 logger = logging.getLogger('basicLogger')
-logger.info("App Conf File: %s" % app_conf_file)
-logger.info("Log Conf File: %s" % log_conf_file)
-     
-
+logger.info(f"App Conf File: {app_conf_file}")
+logger.info(f"Log Conf File: {log_conf_file}")
 
 retries = 1
 while retries < 31:
@@ -40,14 +37,11 @@ while retries < 31:
         retries = 31
         producer = topic.get_sync_producer()
         break
-        # GET ME OUT
     except () as e:
         logger.error(f'ERROR connecting to kafka on attempt {retries}: {e}')
         time.sleep(5)
         retries += 1
-
-
-def process_events(event, endpoint): 
+def process_events(event, endpoint):
     print(endpoint, app_config[endpoint])
     endpoint_url = app_config[endpoint]['url']
     endpoint_type = app_config[endpoint]['type']
@@ -62,17 +56,13 @@ def process_events(event, endpoint):
         producer.produce(msg_str.encode('utf-8'))
         logger.info(f"Returned event {endpoint} response. (ID: {trace_id} with status code {201})")
         return NoContent, 201
-
 def health():
     return 200
 def add_new_stock(body):
     return process_events(body, 'new_stock')
-
 def sell_order(body):
     return process_events(body, 'new_sell_order')
-
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yml", base_path='/receiver', strict_validation=True, validate_responses=True)
-
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)
