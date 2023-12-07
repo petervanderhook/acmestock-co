@@ -1,6 +1,7 @@
 version: '1'
 services:
   zookeeper:
+    become: yes
     image: wurstmeister/zookeeper
     ports:
       - "2181"
@@ -9,6 +10,7 @@ services:
     volumes:
       - /home/azureuser/zookeeper/data
   kafka:
+    become: yes
     image: wurstmeister/kafka
     command: [start-kafka.sh]
     ports:
@@ -31,6 +33,7 @@ services:
     depends_on:
       - "zookeeper"
   db:
+    become: yes
     image: mysql:8.0
     restart: always
     environment:
@@ -52,6 +55,7 @@ services:
       - api.network
 
   nginx:
+    become: yes
     image: nginx:latest
     volumes:
       - /home/azureuser/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -68,6 +72,7 @@ services:
     networks:
       - api.network
   dashboard:
+    become: yes
     build:
       context: ../dashboard-ui
     container_name: dashboard
@@ -80,6 +85,7 @@ services:
     networks:
       - api.network
   health:
+    become: yes
     build:
       context: ../health
     container_name: health
@@ -95,6 +101,7 @@ services:
     networks:
       - api.network
   audit_log:
+    become: yes
     build:
       context: ../audit
     depends_on:
@@ -112,6 +119,7 @@ services:
       - api.network
 
   processing:
+    become: yes
     build:
       context: ../processing
     depends_on:
@@ -129,6 +137,7 @@ services:
       - api.network
 
   receiver:
+    become: yes
     build:
       context: ../receiver
     depends_on:
@@ -147,6 +156,7 @@ services:
       replicas: 3
 
   storage:
+    become: yes
     build:
       context: ../storage
     depends_on:
