@@ -1,3 +1,0 @@
-@Library('pv_ci') _
-
-python_build('ogpeter', 'processing', 8100)
