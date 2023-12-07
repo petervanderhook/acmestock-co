@@ -3,12 +3,12 @@ import time
 import os
 from uuid import uuid4
 from datetime import datetime
+import logging, logging.config
 import connexion
 from connexion import NoContent
 import swagger_ui_bundle
 import yaml
 from pykafka import KafkaClient
-import logging, logging.config
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
     print("In Test Environment")
     app_conf_file = "/config/receiver/app_conf.yml"
@@ -18,20 +18,20 @@ else:
     app_conf_file = "app_conf.yml"
     log_conf_file = "log_conf.yml"
 with open(app_conf_file, 'r') as f:
-    app_config = yaml.safe_load(f.read())
+    APP_CONFIG = yaml.safe_load(f.read())
 with open(log_conf_file, 'r') as f:
-    log_config = yaml.safe_load(f.read())
-    logging.config.dictConfig(log_config)
+    LOG_CONFIG = yaml.safe_load(f.read())
+    logging.config.dictConfig(LOG_CONFIG)
 logger = logging.getLogger('basicLogger')
 logger.info(f"App Conf File: {app_conf_file}")
 logger.info(f"Log Conf File: {log_conf_file}")
 
 retries = 1
 while retries < 31:
-    logger.info(f'ATTEMPT {retries}: Connecting to kafka service. {app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
+    logger.info(f'ATTEMPT {retries}: Connecting to kafka service. {APP_CONFIG["events"]["hostname"]}:{APP_CONFIG["events"]["port"]}')
     try:
-        client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
-        topic = client.topics[str.encode(app_config['events']['topic'])]
+        client = KafkaClient(hosts=f'{APP_CONFIG["events"]["hostname"]}:{APP_CONFIG["events"]["port"]}')
+        topic = client.topics[str.encode(APP_CONFIG['events']['topic'])]
         logger.info(f'Connected to kafka service after {retries} attempts.')
         producer = topic.get_sync_producer()
         break
@@ -44,9 +44,9 @@ while retries < 31:
             raise ConnectionError
         
 def process_events(event, endpoint):
-    print(endpoint, app_config[endpoint])
-    endpoint_url = app_config[endpoint]['url']
-    endpoint_type = app_config[endpoint]['type']
+    print(endpoint, APP_CONFIG[endpoint])
+    endpoint_url = APP_CONFIG[endpoint]['url']
+    endpoint_type = APP_CONFIG[endpoint]['type']
     trace_id = str(uuid4())
     logger.info(f"Received {endpoint} event with id: {trace_id}, endpoint_type: {endpoint_type}")
     if endpoint_type == 'post':
@@ -58,6 +58,7 @@ def process_events(event, endpoint):
         producer.produce(msg_str.encode('utf-8'))
         logger.info(f"Returned event {endpoint} response. (ID: {trace_id} with status code {201})")
         return NoContent, 201
+    return NoContent, 404
 def health():
     return 200
 def add_new_stock(body):
