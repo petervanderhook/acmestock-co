@@ -43,6 +43,7 @@ def health():
 
 def populate_stats():
     # Periodically update stats
+    logger.info("Stuff is happening.")
     logger.info("Static Periodic Statistic Processing Started...")
     try:
         with open(app_config['datastore']['filename'], 'r') as f:
