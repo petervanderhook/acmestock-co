@@ -9,3 +9,4 @@ processing/__pycache__
 audit/data.json
 audit/zipper.zip
 *.log
+img-build.sh

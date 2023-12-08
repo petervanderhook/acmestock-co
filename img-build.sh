@@ -1,16 +1,17 @@
 #!/bin/bash
+docker login -u "ogpeter" -p "DravenSucks571" docker.io
 docker compose -f ./deployment/docker-compose.yml down
 docker image prune -af
 #docker volume prune -af
-docker image build --tag ogpeter/ogpeter:storage ./storage/
-docker image build --tag ogpeter/ogpeter:receiver ./receiver/
-docker image build --tag ogpeter/ogpeter:dashboard ./dashboard-ui/
-docker image build --tag ogpeter/ogpeter:audit ./audit/
-docker image build --tag ogpeter/ogpeter:processing ./processing/
+docker image build --tag ogpeter/storage:latest ./storage/
+docker image build --tag ogpeter/receiver:latest ./receiver/
+docker image build --tag ogpeter/dashboard:latest ./dashboard/
+docker image build --tag ogpeter/audit:latest ./audit/
+docker image build --tag ogpeter/processing:latest ./processing/
 #docker compose -f ./deployment/docker-compose.yml up -d
 #docker ps --format "ID: {{.ID}}\tName: {{.Names}}"
-docker push storage:latest
-docker push receiver:latest
-docker push dashboard:latest
-docker push audit:latest
-docker push processing:latest
+docker push ogpeter/storage:latest
+docker push ogpeter/receiver:latest
+docker push ogpeter/dashboard:latest
+docker push ogpeter/audit:latest
+docker push ogpeter/processing:latest
