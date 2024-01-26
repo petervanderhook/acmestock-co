@@ -46,34 +46,34 @@ Contains GET endpoint for Sell and Stock objects with a start and end date as pa
 Responsible for receiving new orders and stocks at endpoints and forwarding requests to the storage service through a message broker.
 
 Contains Health endpoint to return 200 if the service is running.
-*/acmestock/health*
+`/acmestock/health`
 Contains POST endpoint for Sell and Stock objects following a schema for parameters. Each POST request is routed to the storage service through the message broker.
-*/acmestock/new* New stock
-*/acmestock/sell* New Sell order
+`/acmestock/new New stock`
+`/acmestock/sell New Sell order`
 
 ### **Processing**
 Conducts periodic statistical review of all new sell and stock orders. Stats calculated and tracked include 'num_sell_orders_listed', 'num_stocks_listed', 'average_stock_price', 'total_shares_available', 'average_shares_available_per_stock'.
 Runs calculations every 5 seconds with a maximum of 30 threaded instances. 
 
 Contains Health endpoint to return 200 if the service is running.
-*/acmestock/health*
+`/acmestock/health`
 Contains GET endpoint to fetch current statistics stored.
-*/stats*
+`/stats`
 
 ### **Audit**
 Service with GET endpoints that returns specific stats from unique stocks and sell orders taking in the listing index as a parameter (Used by the dashboard when fetching random listings).
 
 Contains Health endpoint to return 200 if the service is running.
-*/acmestock/health*
+`/acmestock/health`
 Contains GET endpoints to fetch the price of stocks and quantity of a stock listed from a company.
-*/get_stock_quantity*
-*/get_stock_price*
+`/get_stock_quantity`
+`/get_stock_price`
 
 ### **Health**
 Service which tracks the status of all other application services. Has one endpoint to fetch the status of all services.
 
 Contains GET endpoint to fetch current status of all services.
-*/status*
+`/status`
 
 ### **Dashboard**
 React App that displays the current stats for all stocks and companies listed in the database, it will also fetch a random stock and company with an index between 0 and 100 (of a list containing only the most recent added).
