@@ -1,5 +1,5 @@
 #!/bin/bash
-docker login -u "ogpeter" -p "DravenSucks571" docker.io
+docker login -u "ogpeter" -p "FatPassword32" docker.io
 docker compose -f ./deployment/docker-compose.yml down
 docker image prune -af
 #docker volume prune -af
